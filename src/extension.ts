@@ -1,29 +1,75 @@
 'use strict';
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import * as path from 'path';
+import * as fs from 'fs';
+import * as child from 'child_process';
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+const isCompatiblePlatform = process.platform === 'win32';
+
 export function activate(context: vscode.ExtensionContext) {
+	if (!isCompatiblePlatform) {
+		vscode.window.showInformationMessage(messages.WindowsOnly, messages.ShowInfo).then(btn => {
+			if (btn === messages.ShowInfo) {
+				child.exec(`start ${messages.ReadmeUrl}`).unref();
+			}
+		});
+		return;
+	}
 
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
-    console.log('Congratulations, your extension "vscode-conemu" is now active!');
+	context.subscriptions.push(vscode.commands.registerCommand('vscode.conemu', (uri?: vscode.Uri) => {
+		// tslint:disable-next-line:curly
+		if (!checkConfiguration()) return;
 
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with  registerCommand
-    // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('extension.sayHello', () => {
-        // The code you place here will be executed every time your command is executed
-
-        // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World!');
-    });
-
-    context.subscriptions.push(disposable);
+		if (uri && uri.scheme !== "untitled") {
+			runConEmu(uri.fsPath);
+		} else if (vscode.window.activeTextEditor && !vscode.window.activeTextEditor.document.isUntitled) {
+			runConEmu(vscode.window.activeTextEditor.document.uri.fsPath);
+		} else if (vscode.workspace.rootPath) {
+			runConEmu(vscode.workspace.rootPath);
+		}
+	}));
 }
 
-// this method is called when your extension is deactivated
-export function deactivate() {
-}
+const runConEmu = (filepath: string) => {
+	let config = getConfig();
+	let reuseInstanceArg = config.reuseInstance ? "-Single" : "-NoSingle";
+
+	child.execFile(config.path, ["-dir", path.dirname(filepath), reuseInstanceArg]);
+};
+
+const checkConfiguration = () => {
+	let config = getConfig();
+
+	if (!config.path) {
+		vscode.window.showInformationMessage(messages.ConEmuPathNotConfigured, messages.OpenSettings).then(openSettingsCallback);
+		return false;
+	}
+
+	if (!fs.existsSync(config.path)) {
+		vscode.window.showInformationMessage(messages.ConEmuPathInvalid, messages.OpenSettings).then(openSettingsCallback);
+		return false;
+	}
+
+	return true;
+};
+
+const getConfig = () => vscode.workspace.getConfiguration("ConEmu") as any as IConfig;
+
+const openSettingsCallback = (btn) => {
+	if (btn === messages.OpenSettings) {
+		vscode.commands.executeCommand("workbench.action.openGlobalSettings");
+	}
+};
+interface IConfig {
+	path: string;
+	reuseInstance: boolean;
+};
+
+const messages = {
+	WindowsOnly: "This extension works only on Windows, sorry",
+	ShowInfo: "Show Info",
+	ReadmeUrl: "https://github.com/ipatalas/vscode-conemu/blob/master/README.md",
+	ConEmuPathNotConfigured: "ConEmu path is not configured. Set proper path in ConEmu.path setting",
+	OpenSettings: "Open Settings",
+	ConEmuPathInvalid: "ConEmu path is invalid, please correct it."
+};
