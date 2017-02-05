@@ -13,28 +13,27 @@ export function activate(context: vscode.ExtensionContext) {
 				child.exec(`start ${messages.ReadmeUrl}`).unref();
 			}
 		});
-		return;
 	}
 
 	context.subscriptions.push(vscode.commands.registerCommand('vscode.conemu', (uri?: vscode.Uri) => {
 		// tslint:disable-next-line:curly
-		if (!checkConfiguration()) return;
+		if (!isCompatiblePlatform || !checkConfiguration()) return;
 
 		if (uri && uri.scheme !== "untitled") {
-			runConEmu(uri.fsPath);
+			runConEmu(path.dirname(uri.fsPath));
 		} else if (vscode.window.activeTextEditor && !vscode.window.activeTextEditor.document.isUntitled) {
-			runConEmu(vscode.window.activeTextEditor.document.uri.fsPath);
+			runConEmu(path.dirname(vscode.window.activeTextEditor.document.uri.fsPath));
 		} else if (vscode.workspace.rootPath) {
 			runConEmu(vscode.workspace.rootPath);
 		}
 	}));
 }
 
-const runConEmu = (filepath: string) => {
+const runConEmu = (path: string) => {
 	let config = getConfig();
 	let reuseInstanceArg = config.reuseInstance ? "-Single" : "-NoSingle";
 
-	child.execFile(config.path, ["-dir", path.dirname(filepath), reuseInstanceArg]);
+	child.execFile(config.path, ["-dir", path, reuseInstanceArg]);
 };
 
 const checkConfiguration = () => {
