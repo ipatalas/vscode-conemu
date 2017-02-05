@@ -12,6 +12,10 @@
 		"Other"
 	],
 	"icon": "images/conemu-icon.png",
+	"galleryBanner": {
+		"color": "#ccc",
+		"theme": "dark"
+	},
 	"activationEvents": [
 		"onCommand:vscode.conemu"
 	],
@@ -19,7 +23,7 @@
 	"contributes": {
 		"commands": [{
 			"command": "vscode.conemu",
-			"title": "Run ConEmu",
+			"title": "Open in ConEmu",
 			"icon": {
 				"dark": "./images/dark-icon.svg",
 				"light": "./images/light-icon.svg"
@@ -47,7 +51,8 @@
 		"keybindings":[
 			{
 				"command": "vscode.conemu",
-				"key": "alt+shift+u"
+				"key": "shift+alt+c",
+				"when": "!terminalFocus"
 			}
 		],
 		"menus": {
