@@ -18,8 +18,7 @@ Extension contributes one command:
 
 > Note: If the command cannot infer filepath from current document (untitled unsaved files) it opens the project folder.
 
-This command can be executed directly from **Command Pallete** or from keyboard shortcut (default: *Shift-Alt-C*)
-
+This command can be executed directly from **Command Pallete** or from keyboard shortcut (default: *Shift-Alt-C*)  
 It's also available from few other places shown below:
 
 * File explorer context menu:
