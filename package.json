@@ -14,7 +14,7 @@
 	"icon": "images/conemu-icon.png",
 	"galleryBanner": {
 		"color": "#999",
-		"theme": "dark"
+		"theme": "light"
 	},
 	"activationEvents": [
 		"onCommand:vscode.conemu"
