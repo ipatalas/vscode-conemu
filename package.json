@@ -19,6 +19,10 @@
 	"activationEvents": [
 		"onCommand:vscode.conemu"
 	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ipatalas/vscode-conemu"
+	},
 	"main": "./out/src/extension",
 	"contributes": {
 		"commands": [{
