@@ -13,7 +13,7 @@
 	],
 	"icon": "images/conemu-icon.png",
 	"galleryBanner": {
-		"color": "#ccc",
+		"color": "#999",
 		"theme": "dark"
 	},
 	"activationEvents": [
