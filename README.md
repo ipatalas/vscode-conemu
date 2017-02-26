@@ -18,7 +18,7 @@ Extension contributes one command:
 
 > Note: If the command cannot infer filepath from current document (untitled unsaved files) it opens the project folder.
 
-This command can be executed directly from **Command Pallete** or from keyboard shortcut (default: *Shift-Alt-C*)  
+This command can be executed directly from **Command Pallete** or from keyboard shortcut (default: *Shift-Alt-C*)
 It's also available from few other places shown below:
 
 * File explorer context menu:
@@ -56,9 +56,14 @@ This extension contributes the following settings:
 * `ConEmu.showTitlebarIcon`: show button in title bar (default: false)
 
 ## Release Notes
+
+### 1.0.1
+
+- Fixed: error when triggering command from keyboard shortcut
+
 ### 1.0.0
 
-Initial release
+- Initial release
 
 ---
 
