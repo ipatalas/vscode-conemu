@@ -19,7 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
 		// tslint:disable-next-line:curly
 		if (!isCompatiblePlatform || !checkConfiguration()) return;
 
-		if (uri && uri.scheme !== "untitled") {
+		if (uri && uri.scheme && uri.scheme !== "untitled") {
 			runConEmu(path.dirname(uri.fsPath));
 		} else if (vscode.window.activeTextEditor && !vscode.window.activeTextEditor.document.isUntitled) {
 			runConEmu(path.dirname(vscode.window.activeTextEditor.document.uri.fsPath));
