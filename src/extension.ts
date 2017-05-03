@@ -30,14 +30,17 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 const runConEmu = (path: string) => {
-	let config = getConfig();
-	let reuseInstanceArg = config.reuseInstance ? "-Single" : "-NoSingle";
+	const config = getConfig();
+	const reuseInstanceArg = config.reuseInstance ? "-Single" : "-NoSingle";
 
-	child.execFile(config.path, ["-dir", path, reuseInstanceArg]);
+	const args: string[] = ["/c", "start", "/b", config.path, "-dir", path, reuseInstanceArg];
+
+	child.spawn("cmd", args);
+
 };
 
 const checkConfiguration = () => {
-	let config = getConfig();
+	const config = getConfig();
 
 	if (!config.path) {
 		vscode.window.showInformationMessage(messages.ConEmuPathNotConfigured, messages.OpenSettings).then(openSettingsCallback);
@@ -62,7 +65,7 @@ const openSettingsCallback = (btn) => {
 interface IConfig {
 	path: string;
 	reuseInstance: boolean;
-};
+}
 
 const messages = {
 	WindowsOnly: "This extension works only on Windows, sorry",
