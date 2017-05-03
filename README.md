@@ -57,6 +57,9 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 1.0.2
+
+- Fixed: issue #2 (ConEmu process being killed after VSCode is closed)
 ### 1.0.1
 
 - Fixed: error when triggering command from keyboard shortcut
