@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.3 (May 7, 2017)
+
+- Fixed: issue #3 (ConEmu couldn't start when it was in a path with spaces)
+
 ## 1.0.2 (May 3, 2017)
 
 - Fixed: issue #2 (ConEmu process being killed after VSCode is closed)
