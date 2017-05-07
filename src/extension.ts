@@ -38,7 +38,7 @@ const runConEmu = (path: string) => {
 
 	const quote = (p: string) => p.includes(" ") ? `"${p}"` : p;
 
-	child.exec(`${quote(config.path)} -dir ${quote(path)} ${reuseInstanceArg}`, (error: Error, stdout: string, stderr: string) => {
+	child.exec(`${quote(config.path)} -dir ${quote(path)} ${reuseInstanceArg}`, (error: Error, _stdout: string, stderr: string) => {
 		if (error || stderr) {
 			const outputChannel = vscode.window.createOutputChannel(pkg.displayName);
 
