@@ -4,6 +4,9 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as child from 'child_process';
 
+// tslint:disable-next-line:no-var-requires
+const pkg = require('../../package.json');
+
 const isCompatiblePlatform = process.platform === 'win32';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -33,10 +36,23 @@ const runConEmu = (path: string) => {
 	const config = getConfig();
 	const reuseInstanceArg = config.reuseInstance ? "-Single" : "-NoSingle";
 
-	const args: string[] = ["/c", "start", "/b", config.path, "-dir", path, reuseInstanceArg];
+	const quote = (p: string) => p.includes(" ") ? `"${p}"` : p;
 
-	child.spawn("cmd", args);
+	child.exec(`${quote(config.path)} -dir ${quote(path)} ${reuseInstanceArg}`, (error: Error, stdout: string, stderr: string) => {
+		if (error || stderr) {
+			const outputChannel = vscode.window.createOutputChannel(pkg.displayName);
 
+			if (error) {
+				outputChannel.appendLine(error.message);
+			}
+
+			if (stderr) {
+				outputChannel.appendLine(stderr);
+			}
+
+			outputChannel.show();
+		}
+	});
 };
 
 const checkConfiguration = () => {
