@@ -57,6 +57,10 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 1.0.4
+
+- Converted all svg icons to png to comply with incoming extension rules
+
 ### 1.0.3
 
 - Fixed: issue #3 (ConEmu couldn't start when it was in a path with spaces)
