@@ -29,8 +29,8 @@
 			"command": "vscode.conemu",
 			"title": "Open in ConEmu",
 			"icon": {
-				"dark": "./images/dark-icon.svg",
-				"light": "./images/light-icon.svg"
+				"dark": "./images/dark-icon.png",
+				"light": "./images/light-icon.png"
 			}
 		}],
 		"configuration": {
