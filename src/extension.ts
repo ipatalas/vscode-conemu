@@ -35,7 +35,7 @@ export function activate(context: vscode.ExtensionContext) {
 const runConEmu = (path: string) => {
 	const config = getConfig();
 	const reuseInstanceArg = config.reuseInstance ? "-Single" : "-NoSingle";
-	const showMessage = config.showMessageInOutputPanel
+	const showMessage = config.showMessageInOutputPanel;
 
 	const quote = (p: string) => p.includes(" ") ? `"${p}"` : p;
 
