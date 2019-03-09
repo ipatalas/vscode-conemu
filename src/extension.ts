@@ -35,11 +35,12 @@ export function activate(context: vscode.ExtensionContext) {
 const runConEmu = (path: string) => {
 	const config = getConfig();
 	const reuseInstanceArg = config.reuseInstance ? "-Single" : "-NoSingle";
+	const showMessage = config.showMessageInOutputPanel;
 
 	const quote = (p: string) => p.includes(" ") ? `"${p}"` : p;
 
 	child.exec(`${quote(config.path)} -dir ${quote(path)} ${reuseInstanceArg}`, (error: Error, _stdout: string, stderr: string) => {
-		if (error || stderr) {
+		if (showMessage && (error || stderr)) {
 			const outputChannel = vscode.window.createOutputChannel(pkg.displayName);
 
 			if (error) {
@@ -81,6 +82,7 @@ const openSettingsCallback = (btn) => {
 interface IConfig {
 	path: string;
 	reuseInstance: boolean;
+	showMessageInOutputPanel: boolean;
 }
 
 const messages = {

@@ -54,8 +54,13 @@ This extension contributes the following settings:
 * `ConEmu.path`: full path to ConEmu executable (ConEmu.exe/ConEmu64.exe)
 * `ConEmu.reuseInstance`: open console in existing instance or always new window
 * `ConEmu.showTitlebarIcon`: show button in title bar (default: false)
+* `ConEmu.showMessageInOutputPanel`: show messages in output panel (default: false)
 
 ## Release Notes
+
+### 1.0.5
+
+- Add VSCode extention flag for suppressing errors and output messages.
 
 ### 1.0.4
 

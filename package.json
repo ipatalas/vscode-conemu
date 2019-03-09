@@ -49,10 +49,15 @@
 					"type": "boolean",
 					"description": "Flag indicating whether to show button on titlebar",
 					"default": false
+				},
+				"ConEmu.showMessageInOutputPanel": {
+					"type": "boolean",
+					"description": "Determines wether to show messages in output panel",
+					"default": false
 				}
 			}
 		},
-		"keybindings":[
+		"keybindings": [
 			{
 				"command": "vscode.conemu",
 				"key": "shift+alt+c",
@@ -60,18 +65,24 @@
 			}
 		],
 		"menus": {
-			"explorer/context": [{
-				"command": "vscode.conemu",
-				"group": "navigation@99"
-			}],
-			"editor/title/context": [{
-				"command": "vscode.conemu"
-			}],
-			"editor/title": [{
-				"command": "vscode.conemu",
-				"group": "navigation",
-				"when": "config.ConEmu.showTitlebarIcon"
-			}]
+			"explorer/context": [
+				{
+					"command": "vscode.conemu",
+					"group": "navigation@99"
+				}
+			],
+			"editor/title/context": [
+				{
+					"command": "vscode.conemu"
+				}
+			],
+			"editor/title": [
+				{
+					"command": "vscode.conemu",
+					"group": "navigation",
+					"when": "config.ConEmu.showTitlebarIcon"
+				}
+			]
 		}
 	},
 	"scripts": {
