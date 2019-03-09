@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.5 (March 9, 2019)
+
+- Add VSCode extention flag for suppressing errors and output messages.
+
 ## 1.0.4 (June 30, 2017)
 
 - Converted all svg icons to png to comply with incoming extension rules
