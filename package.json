@@ -3,8 +3,8 @@
 	"displayName": "ConEmu Launcher",
 	"description": "ConEmu Launcher for VS Code",
 	"version": "1.0.6",
-	"author": "Ireneusz Patalas",
-	"publisher": "ipatalas",
+	"author": "Josh Byrnes",
+	"publisher": "j-byrnes",
 	"engines": {
 		"vscode": "^1.5.0"
 	},
