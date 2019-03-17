@@ -2,7 +2,7 @@
 	"name": "vscode-conemu",
 	"displayName": "ConEmu Launcher",
 	"description": "ConEmu Launcher for VS Code",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"author": "Ireneusz Patalas",
 	"publisher": "ipatalas",
 	"engines": {
@@ -25,14 +25,16 @@
 	},
 	"main": "./out/src/extension",
 	"contributes": {
-		"commands": [{
-			"command": "vscode.conemu",
-			"title": "Open in ConEmu",
-			"icon": {
-				"dark": "./images/dark-icon.png",
-				"light": "./images/light-icon.png"
+		"commands": [
+			{
+				"command": "vscode.conemu",
+				"title": "Open in ConEmu",
+				"icon": {
+					"dark": "./images/dark-icon.png",
+					"light": "./images/light-icon.png"
+				}
 			}
-		}],
+		],
 		"configuration": {
 			"title": "ConEmu Launcher",
 			"properties": {
@@ -52,8 +54,17 @@
 				},
 				"ConEmu.showMessageInOutputPanel": {
 					"type": "boolean",
-					"description": "Determines wether to show messages in output panel",
+					"description": "Determines whether to show messages in output panel",
 					"default": false
+				},
+				"ConEmu.useCustomConEmuRunOption": {
+					"type": "boolean",
+					"description": "Determins whether to use a custom ConEmu Run Option or the default startup settings when opening a console",
+					"default": false
+				},
+				"ConEmu.customRunOption": {
+					"type": "string",
+					"description": "The ConEmu run option to use (i.e. {Shells::PowerShell (Admin)} / @taskfile.txt)"
 				}
 			}
 		},
@@ -94,6 +105,11 @@
 	"devDependencies": {
 		"@types/node": "^7.0.5",
 		"typescript": "^2.1.5",
-		"vscode": "^1.0.3"
+		"vscode": "^1.1.30"
+	},
+	"dependencies": {
+		"child": "0.0.3",
+		"fs": "0.0.1-security",
+		"path": "^0.12.7"
 	}
 }

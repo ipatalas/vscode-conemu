@@ -39,21 +39,42 @@ const runConEmu = (path: string) => {
 
 	const quote = (p: string) => p.includes(" ") ? `"${p}"` : p;
 
-	child.exec(`${quote(config.path)} -dir ${quote(path)} ${reuseInstanceArg}`, (error: Error, _stdout: string, stderr: string) => {
-		if (showMessage && (error || stderr)) {
-			const outputChannel = vscode.window.createOutputChannel(pkg.displayName);
+	if(config.useCustomConEmuRunOption) {
+		child.exec(`${quote(config.path)} -dir ${quote(path)} ${reuseInstanceArg} -run ${config.customRunOption}`, (error: Error, _stdout: string, stderr: string) => {
+			if (showMessage && (error || stderr)) {
+				const outputChannel = vscode.window.createOutputChannel(pkg.displayName);
 
-			if (error) {
-				outputChannel.appendLine(error.message);
+				if (error) {
+					outputChannel.appendLine(error.message);
+				}
+
+				if (stderr) {
+					outputChannel.appendLine(stderr);
+				}
+
+				outputChannel.show();
 			}
+		});
 
-			if (stderr) {
-				outputChannel.appendLine(stderr);
+	} else {
+		child.exec(`${quote(config.path)} -dir ${quote(path)} ${reuseInstanceArg}`, (error: Error, _stdout: string, stderr: string) => {
+			if (showMessage && (error || stderr)) {
+				const outputChannel = vscode.window.createOutputChannel(pkg.displayName);
+
+				if (error) {
+					outputChannel.appendLine(error.message);
+				}
+
+				if (stderr) {
+					outputChannel.appendLine(stderr);
+				}
+
+				outputChannel.show();
 			}
+		});
 
-			outputChannel.show();
-		}
-	});
+	}
+
 };
 
 const checkConfiguration = () => {
@@ -66,6 +87,11 @@ const checkConfiguration = () => {
 
 	if (!fs.existsSync(config.path)) {
 		vscode.window.showInformationMessage(messages.ConEmuPathInvalid, messages.OpenSettings).then(openSettingsCallback);
+		return false;
+	}
+
+	if (config.useCustomConEmuRunOption && !config.customRunOption) {
+		vscode.window.showInformationMessage(messages.NoCustomRunOption, messages.OpenSettings).then(openSettingsCallback);
 		return false;
 	}
 
@@ -83,6 +109,8 @@ interface IConfig {
 	path: string;
 	reuseInstance: boolean;
 	showMessageInOutputPanel: boolean;
+	useCustomConEmuRunOption: boolean,
+	customRunOption: string;
 }
 
 const messages = {
@@ -91,5 +119,6 @@ const messages = {
 	ReadmeUrl: "https://github.com/ipatalas/vscode-conemu/blob/master/README.md",
 	ConEmuPathNotConfigured: "ConEmu path is not configured. Set proper path in ConEmu.path setting",
 	OpenSettings: "Open Settings",
-	ConEmuPathInvalid: "ConEmu path is invalid, please correct it."
+	ConEmuPathInvalid: "ConEmu path is invalid, please correct it.",
+	NoCustomRunOption: "Custom Run Option is not configured. Set option in ConEmu.customRunOption setting"
 };
