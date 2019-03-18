@@ -39,7 +39,7 @@ const runConEmu = (path: string) => {
 
 	const quote = (p: string) => p.includes(" ") ? `"${p}"` : p;
 
-	if(config.customRunOption) {
+	if (config.customRunOption) {
 		child.exec(`${quote(config.path)} -dir ${quote(path)} ${reuseInstanceArg} -run ${config.customRunOption}`, (error: Error, _stdout: string, stderr: string) => {
 			if (showMessage && (error || stderr)) {
 				const outputChannel = vscode.window.createOutputChannel(pkg.displayName);
@@ -104,7 +104,7 @@ interface IConfig {
 	path: string;
 	reuseInstance: boolean;
 	showMessageInOutputPanel: boolean;
-	useCustomConEmuRunOption: boolean,
+	useCustomConEmuRunOption: boolean;
 	customRunOption: string;
 }
 
