@@ -39,7 +39,7 @@ const runConEmu = (path: string) => {
 
 	const quote = (p: string) => p.includes(" ") ? `"${p}"` : p;
 
-	if(config.useCustomConEmuRunOption) {
+	if(config.customRunOption) {
 		child.exec(`${quote(config.path)} -dir ${quote(path)} ${reuseInstanceArg} -run ${config.customRunOption}`, (error: Error, _stdout: string, stderr: string) => {
 			if (showMessage && (error || stderr)) {
 				const outputChannel = vscode.window.createOutputChannel(pkg.displayName);
@@ -90,11 +90,6 @@ const checkConfiguration = () => {
 		return false;
 	}
 
-	if (config.useCustomConEmuRunOption && !config.customRunOption) {
-		vscode.window.showInformationMessage(messages.NoCustomRunOption, messages.OpenSettings).then(openSettingsCallback);
-		return false;
-	}
-
 	return true;
 };
 
@@ -120,5 +115,5 @@ const messages = {
 	ConEmuPathNotConfigured: "ConEmu path is not configured. Set proper path in ConEmu.path setting",
 	OpenSettings: "Open Settings",
 	ConEmuPathInvalid: "ConEmu path is invalid, please correct it.",
-	NoCustomRunOption: "Custom Run Option is not configured. Set option in ConEmu.customRunOption setting"
+
 };
