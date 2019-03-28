@@ -104,7 +104,6 @@ interface IConfig {
 	path: string;
 	reuseInstance: boolean;
 	showMessageInOutputPanel: boolean;
-	useCustomConEmuRunOption: boolean;
 	customRunOption: string;
 }
 

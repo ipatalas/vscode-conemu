@@ -55,7 +55,6 @@ This extension contributes the following settings:
 * `ConEmu.reuseInstance`: open console in existing instance or always new window
 * `ConEmu.showTitlebarIcon`: show button in title bar (default: false)
 * `ConEmu.showMessageInOutputPanel`: show messages in output panel (default: false)
-* `ConEmu.useCustomConEmuRunOption`: use [ConEmu -Run option](https://conemu.github.io/en/ConEmuArgs.html) to launch predefined console (default: false)
 * `ConEmu.customRunOption`: ConEmu defined Task or Taskfile ({Shells::PowerShell (Admin)} / @taskfile.txt)
 
 ## Release Notes
