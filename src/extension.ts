@@ -80,11 +80,6 @@ const runConEmu = (path: string) => {
 const checkConfiguration = () => {
 	const config = getConfig();
 
-	if (!config.path) {
-		vscode.window.showInformationMessage(messages.ConEmuPathNotConfigured, messages.OpenSettings).then(openSettingsCallback);
-		return false;
-	}
-
 	if (!fs.existsSync(config.path)) {
 		vscode.window.showInformationMessage(messages.ConEmuPathInvalid, messages.OpenSettings).then(openSettingsCallback);
 		return false;
@@ -111,7 +106,6 @@ const messages = {
 	WindowsOnly: "This extension works only on Windows, sorry",
 	ShowInfo: "Show Info",
 	ReadmeUrl: "https://github.com/ipatalas/vscode-conemu/blob/master/README.md",
-	ConEmuPathNotConfigured: "ConEmu path is not configured. Set proper path in ConEmu.path setting",
 	OpenSettings: "Open Settings",
 	ConEmuPathInvalid: "ConEmu path is invalid, please correct it.",
 
