@@ -39,30 +39,46 @@ const runConEmu = (path: string) => {
 
 	const quote = (p: string) => p.includes(" ") ? `"${p}"` : p;
 
-	child.exec(`${quote(config.path)} -dir ${quote(path)} ${reuseInstanceArg}`, (error: Error, _stdout: string, stderr: string) => {
-		if (showMessage && (error || stderr)) {
-			const outputChannel = vscode.window.createOutputChannel(pkg.displayName);
+	if (config.customRunOption) {
+		child.exec(`${quote(config.path)} -dir ${quote(path)} ${reuseInstanceArg} -run ${config.customRunOption}`, (error: Error, _stdout: string, stderr: string) => {
+			if (showMessage && (error || stderr)) {
+				const outputChannel = vscode.window.createOutputChannel(pkg.displayName);
 
-			if (error) {
-				outputChannel.appendLine(error.message);
+				if (error) {
+					outputChannel.appendLine(error.message);
+				}
+
+				if (stderr) {
+					outputChannel.appendLine(stderr);
+				}
+
+				outputChannel.show();
 			}
+		});
 
-			if (stderr) {
-				outputChannel.appendLine(stderr);
+	} else {
+		child.exec(`${quote(config.path)} -dir ${quote(path)} ${reuseInstanceArg}`, (error: Error, _stdout: string, stderr: string) => {
+			if (showMessage && (error || stderr)) {
+				const outputChannel = vscode.window.createOutputChannel(pkg.displayName);
+
+				if (error) {
+					outputChannel.appendLine(error.message);
+				}
+
+				if (stderr) {
+					outputChannel.appendLine(stderr);
+				}
+
+				outputChannel.show();
 			}
+		});
 
-			outputChannel.show();
-		}
-	});
+	}
+
 };
 
 const checkConfiguration = () => {
 	const config = getConfig();
-
-	if (!config.path) {
-		vscode.window.showInformationMessage(messages.ConEmuPathNotConfigured, messages.OpenSettings).then(openSettingsCallback);
-		return false;
-	}
 
 	if (!fs.existsSync(config.path)) {
 		vscode.window.showInformationMessage(messages.ConEmuPathInvalid, messages.OpenSettings).then(openSettingsCallback);
@@ -83,13 +99,14 @@ interface IConfig {
 	path: string;
 	reuseInstance: boolean;
 	showMessageInOutputPanel: boolean;
+	customRunOption: string;
 }
 
 const messages = {
 	WindowsOnly: "This extension works only on Windows, sorry",
 	ShowInfo: "Show Info",
 	ReadmeUrl: "https://github.com/ipatalas/vscode-conemu/blob/master/README.md",
-	ConEmuPathNotConfigured: "ConEmu path is not configured. Set proper path in ConEmu.path setting",
 	OpenSettings: "Open Settings",
-	ConEmuPathInvalid: "ConEmu path is invalid, please correct it."
+	ConEmuPathInvalid: "ConEmu path is invalid, please correct it.",
+
 };

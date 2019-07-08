@@ -37,9 +37,9 @@ To overwrite default **Command Prompt** (plain old ugly cmd) shortcut with **Con
 
 ```JSON
 {
-	"key": "ctrl+shift+c",
-	"command": "vscode.conemu",
-	"when": "!terminalFocus"
+    "key": "ctrl+shift+c",
+    "command": "vscode.conemu",
+    "when": "!terminalFocus"
 }
 ```
 
@@ -55,32 +55,37 @@ This extension contributes the following settings:
 * `ConEmu.reuseInstance`: open console in existing instance or always new window
 * `ConEmu.showTitlebarIcon`: show button in title bar (default: false)
 * `ConEmu.showMessageInOutputPanel`: show messages in output panel (default: false)
+* `ConEmu.customRunOption`: ConEmu defined Task or Taskfile ({Shells::PowerShell (Admin)} / @taskfile.txt)
 
 ## Release Notes
 
+### 1.0.6
+
+* Add settings to allow use of defined run option when starting ConEmu (such as a predefined ConEmu Task or Task File)
+
 ### 1.0.5
 
-- Add VSCode extention flag for suppressing errors and output messages.
+* Add VSCode extention flag for suppressing errors and output messages.
 
 ### 1.0.4
 
-- Converted all svg icons to png to comply with incoming extension rules
+* Converted all svg icons to png to comply with incoming extension rules
 
 ### 1.0.3
 
-- Fixed: issue #3 (ConEmu couldn't start when it was in a path with spaces)
+* Fixed: issue #3 (ConEmu couldn't start when it was in a path with spaces)
 
 ### 1.0.2
 
-- Fixed: issue #2 (ConEmu process being killed after VSCode is closed)
+* Fixed: issue #2 (ConEmu process being killed after VSCode is closed)
 
 ### 1.0.1
 
-- Fixed: error when triggering command from keyboard shortcut
+* Fixed: error when triggering command from keyboard shortcut
 
 ### 1.0.0
 
-- Initial release
+* Initial release
 
 ---
 

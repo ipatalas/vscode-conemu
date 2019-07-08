@@ -1,8 +1,12 @@
 # Change Log
 
+## 1.0.6 (March 16, 2019)
+
+- Add settings to allow use of defined run option when starting ConEmu (such as a predefined ConEmu Task or Task File)
+
 ## 1.0.5 (March 9, 2019)
 
-- Add VSCode extention flag for suppressing errors and output messages.
+- Add VSCode extension flag for suppressing errors and output messages.
 
 ## 1.0.4 (June 30, 2017)
 
