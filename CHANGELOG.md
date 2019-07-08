@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.0.6 (March 16, 2019)
+## 1.0.6 (July 8, 2019)
 
 - Add settings to allow use of defined run option when starting ConEmu (such as a predefined ConEmu Task or Task File)
 
