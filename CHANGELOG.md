@@ -2,7 +2,7 @@
 
 ## 1.0.6 (July 8, 2019)
 
-- Add settings to allow use of defined run option when starting ConEmu (such as a predefined ConEmu Task or Task File)
+- Add settings to allow use of defined run option when starting ConEmu (such as a predefined ConEmu Task or Task File) - **PR from @j-byrnes - thanks!**
 
 ## 1.0.5 (March 9, 2019)
 
