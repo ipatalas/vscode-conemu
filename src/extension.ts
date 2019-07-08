@@ -39,42 +39,26 @@ const runConEmu = (path: string) => {
 
 	const quote = (p: string) => p.includes(" ") ? `"${p}"` : p;
 
+	let command = `${quote(config.path)} -dir ${quote(path)} ${reuseInstanceArg}`;
 	if (config.customRunOption) {
-		child.exec(`${quote(config.path)} -dir ${quote(path)} ${reuseInstanceArg} -run ${config.customRunOption}`, (error: Error, _stdout: string, stderr: string) => {
-			if (showMessage && (error || stderr)) {
-				const outputChannel = vscode.window.createOutputChannel(pkg.displayName);
-
-				if (error) {
-					outputChannel.appendLine(error.message);
-				}
-
-				if (stderr) {
-					outputChannel.appendLine(stderr);
-				}
-
-				outputChannel.show();
-			}
-		});
-
-	} else {
-		child.exec(`${quote(config.path)} -dir ${quote(path)} ${reuseInstanceArg}`, (error: Error, _stdout: string, stderr: string) => {
-			if (showMessage && (error || stderr)) {
-				const outputChannel = vscode.window.createOutputChannel(pkg.displayName);
-
-				if (error) {
-					outputChannel.appendLine(error.message);
-				}
-
-				if (stderr) {
-					outputChannel.appendLine(stderr);
-				}
-
-				outputChannel.show();
-			}
-		});
-
+		command += ` -run ${config.customRunOption}`;
 	}
 
+	child.exec(command, (error: Error, _stdout: string, stderr: string) => {
+		if (showMessage && (error || stderr)) {
+			const outputChannel = vscode.window.createOutputChannel(pkg.displayName);
+
+			if (error) {
+				outputChannel.appendLine(error.message);
+			}
+
+			if (stderr) {
+				outputChannel.appendLine(stderr);
+			}
+
+			outputChannel.show();
+		}
+	});
 };
 
 const checkConfiguration = () => {
