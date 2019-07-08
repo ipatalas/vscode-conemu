@@ -98,8 +98,8 @@
 		"test": "node ./node_modules/vscode/bin/test"
 	},
 	"devDependencies": {
-		"@types/node": "^7.0.5",
-		"typescript": "^2.1.5",
-		"vscode": "^1.1.30"
+		"@types/node": "^8.10.49",
+		"typescript": "^3.5.1",
+		"vscode": "^1.1.34"
 	}
 }
